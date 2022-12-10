@@ -78,5 +78,6 @@ public class Main {
         operationWithoutSync(x, y);
         c = new Counter(default1, default2);
         operationWithSync(x, y);
+        c = null;
     }
 }

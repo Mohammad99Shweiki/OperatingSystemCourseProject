@@ -1,9 +1,11 @@
+import java.util.concurrent.locks.ReentrantLock;
+
 public class Counter {
 
     int first;
     int second;
 
-    boolean lock;
+    ReentrantLock lock;
 
     public Counter() {
     }
@@ -11,7 +13,7 @@ public class Counter {
     public Counter(int first, int second) {
         this.first = first;
         this.second = second;
-        lock = false;
+        lock = new ReentrantLock();
     }
 
     public void firstProcessNotSynced() {
@@ -32,11 +34,11 @@ public class Counter {
         this.second = second;
     }
 
-    public void setLock(boolean lock) {
+    public void setLock(ReentrantLock lock) {
         this.lock = lock;
     }
 
-    public boolean getLock() {
+    public ReentrantLock getLock() {
         return lock;
     }
 
@@ -55,24 +57,24 @@ public class Counter {
     }
 
     public void firstProcessSynced() {
-        while (lock) ;
-        lock = true;
+        while (lock.isLocked()) ;
+        lock.lock();
         try {
             first = first + 1;
             second = second - 1;
         } finally {
-            lock = false;
+            lock.unlock();
         }
     }
 
     public void secondProcessSynced() {
-        while (lock) ;
-        lock = true;
+        while (lock.isLocked()) ;
+        lock.lock();
         try {
             first = first - 1;
             second = second + 1;
         } finally {
-            lock = false;
+            lock.unlock();
         }
     }
 }
