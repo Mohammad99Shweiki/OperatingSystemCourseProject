@@ -16,16 +16,6 @@ public class Counter {
         lock = new ReentrantLock();
     }
 
-    public void firstProcessNotSynced() {
-        first = first + 1;
-        second = second - 1;
-    }
-
-    public void secondProcessNotSynced() {
-        first = first - 1;
-        second = second + 1;
-    }
-
     public void setFirst(int first) {
         this.first = first;
     }
@@ -52,8 +42,18 @@ public class Counter {
 
     @Override
     public String toString() {
-        return "first=" + first +
-                "\nsecond=" + second;
+        return "first= " + first +
+                "\nsecond= " + second;
+    }
+
+    public void firstProcessNotSynced() {
+        first = first + 1;
+        second = second - 1;
+    }
+
+    public void secondProcessNotSynced() {
+        first = first - 1;
+        second = second + 1;
     }
 
     public void firstProcessSynced() {

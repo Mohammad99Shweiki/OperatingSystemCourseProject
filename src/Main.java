@@ -6,11 +6,11 @@ public class Main {
     }
 
     public static void printInitialInfo(int x, int y) {
-        System.out.println("value of the first parameter before execution = " + c.getFirst());
-        System.out.println("value of the second parameter before execution = " + c.getSecond());
-        System.out.println("expected value are :");
-        System.out.println(c.getFirst() + x - y);
-        System.out.println(c.getSecond() - x + y);
+        System.out.println("values before execution");
+        System.out.println(c);
+        System.out.println("expected values are :");
+        System.out.println("first: " + (c.getFirst() + x - y));
+        System.out.println("second: " + (c.getSecond() - x + y));
     }
 
     public static void operationWithoutSync(int x, int y) throws InterruptedException {
@@ -76,8 +76,8 @@ public class Main {
         int default2 = c.getSecond();
         printInitialInfo(x, y);
         operationWithoutSync(x, y);
-        c = new Counter(default1, default2);
+        c.setFirst(default1);
+        c.setSecond(default2);
         operationWithSync(x, y);
-        c = null;
     }
 }
